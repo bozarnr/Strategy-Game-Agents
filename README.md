@@ -1,12 +1,10 @@
 # Strategy Game Agents
 
-A small repeated-choice experiment repo with baseline agents. The original page collects 10-round behavioral-finance choices; the Python package adds replayable decision rules and simple comparison metrics.
-
-网页用于收集人类选择，Python 包用于跑基线 agent。后续可以把人类轨迹和 agent 轨迹放到同一套指标里比较，但当前版本还不解释真实投资行为，也不产生交易信号。
+A small repeated-choice experiment repo with baseline agents, trace validation, and simple behavioral fitting. The browser page can collect choices; the Python package replays baseline decision rules and compares them against participant-like traces.
 
 ## Showcase
 
-- [Agent Comparison Report](reports/agent-comparison.md): safe, epsilon-greedy, and loss-averse baselines on the deterministic 10-round game.
+- [Agent Comparison Report](reports/agent-comparison.md): safe, epsilon-greedy, and loss-averse baselines plus trace-schema and fitting capabilities.
 
 ## Related repos
 
@@ -20,7 +18,9 @@ A small repeated-choice experiment repo with baseline agents. The original page 
 - Repeated-game engine with deterministic seeding.
 - Agents: fixed preference, epsilon-greedy learning, and loss-averse utility.
 - Metrics: cumulative payoff, risky-choice rate, regret, and round-level traces.
-- Tests for reproducibility, learning updates, regret accounting, and loss-aversion behavior.
+- Participant trace schema: required columns, duplicate checks, allowed-option checks, and sorted normalized output.
+- Baseline fitting: loss-aversion and epsilon-greedy grids matched to observed risky-choice rates.
+- Tests for reproducibility, learning updates, regret accounting, trace validation, and fitting output.
 
 ## Run
 
@@ -33,20 +33,31 @@ python -m unittest discover -s tests -v
 ## Minimal API
 
 ```python
-from strategy_game_agents.agents import EpsilonGreedyAgent
-from strategy_game_agents.game import RepeatedChoiceGame, fixed_option, risky_uniform_option
-from strategy_game_agents.simulation import run_simulation
+import pandas as pd
+
+from strategy_game_agents import (
+    EpsilonGreedyAgent,
+    ParticipantTraceSchema,
+    RepeatedChoiceGame,
+    fit_epsilon_greedy_by_risky_rate,
+    fixed_option,
+    risky_uniform_option,
+    run_simulation,
+)
 
 game = RepeatedChoiceGame(
-    options=[
-        fixed_option("safe", payoff=5.5),
-        risky_uniform_option("risky", low=1, high=10),
-    ],
+    options=[fixed_option("safe", payoff=5.5), risky_uniform_option("risky_uniform", low=0, high=12)],
     rounds=10,
     seed=42,
 )
 result = run_simulation(game, EpsilonGreedyAgent(epsilon=0.2, seed=7))
-print(result.summary())
+
+trace = pd.DataFrame([
+    {"participant_id": "p1", "round": 1, "option_id": "safe", "payoff": 5.5},
+    {"participant_id": "p1", "round": 2, "option_id": "risky_uniform", "payoff": 9.0},
+])
+validated = ParticipantTraceSchema(allowed_options=["safe", "risky_uniform"]).validate(trace)
+fit = fit_epsilon_greedy_by_risky_rate(validated, game)
 ```
 
 ## Evidence boundary
