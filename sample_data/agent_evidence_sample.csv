@@ -1,0 +1,4 @@
+candidate_id,level,games_observed,primary_bottleneck,claim_ceiling
+fixed_safe,rule_reproduced,20,limited_adaptivity,replay behavior only
+epsilon_greedy_v1,local_screened,48,policy_shift_risk,local screen passed
+loss_averse_baseline,distribution_calibrated,60,parameter_transfer,simulation distribution match only
