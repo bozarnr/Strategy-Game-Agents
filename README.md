@@ -4,6 +4,10 @@ A small repeated-choice experiment repo with baseline agents. The original page 
 
 网页用于收集人类选择，Python 包用于跑基线 agent。后续可以把人类轨迹和 agent 轨迹放到同一套指标里比较，但当前版本还不解释真实投资行为，也不产生交易信号。
 
+## Showcase
+
+- [Agent Comparison Report](reports/agent-comparison.md): safe, epsilon-greedy, and loss-averse baselines on the deterministic 10-round game.
+
 ## Related repos
 
 - [AI-Alpha-Research-Lab](https://github.com/bozarnr/AI-Alpha-Research-Lab): formula search, evaluation, and rejection gates.
