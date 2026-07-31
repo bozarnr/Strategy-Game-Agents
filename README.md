@@ -1,32 +1,24 @@
 # Strategy Game Agents
 
-Behavioral-finance experiment tooling plus clean-room strategy agents for
-simulating repeated risky-choice games. The repository started as a web
-experiment page; this version adds a reproducible Python core that can replay
-simple decision rules and compare agent behavior under bounded evidence.
+A small repeated-choice experiment repo with baseline agents. The original page collects 10-round behavioral-finance choices; the Python package adds replayable decision rules and simple comparison metrics.
 
-## Public Research Stack
+网页用于收集人类选择，Python 包用于跑基线 agent。后续可以把人类轨迹和 agent 轨迹放到同一套指标里比较，但当前版本还不解释真实投资行为，也不产生交易信号。
 
-This repository is one part of a public AI-quant portfolio:
+## Related repos
 
-- [AI Alpha Research Lab](https://github.com/bozarnr/eee): formula-alpha research with strict promotion gates.
-- [Paper Alpha Replications](https://github.com/bozarnr/paper-library): evidence-first paper replication ledger.
-- [Quant Research Toolkit](https://github.com/bozarnr/experiment): reusable time-safe factor diagnostics.
-- [Strategy Game Agents](https://github.com/bozarnr/behavioral-finance-experiment): behavioral experiment tooling plus strategy-agent simulation.
+- [AI-Alpha-Research-Lab](https://github.com/bozarnr/AI-Alpha-Research-Lab): formula search, evaluation, and rejection gates.
+- [Paper-Alpha-Replications](https://github.com/bozarnr/Paper-Alpha-Replications): replication notes with claim ceilings.
+- [Quant-Research-Toolkit](https://github.com/bozarnr/Quant-Research-Toolkit): reusable checks for factor panels and diagnostics.
+- [Strategy-Game-Agents](https://github.com/bozarnr/Strategy-Game-Agents): repeated-choice experiments and baseline agents.
 
-## What It Shows
+## What is here
 
-- A small repeated-game engine with deterministic seeding.
-- Strategy agents: fixed preference, epsilon-greedy learning, and loss-averse
-  utility.
-- Metrics for cumulative payoff, risky-choice rate, regret against the best
-  available option, and round-level traces.
-- Unit tests that pin reproducibility, regret accounting, and behavioral
-  parameters.
-- A clear boundary between experiment infrastructure and validated behavioral
-  or trading claims.
+- Repeated-game engine with deterministic seeding.
+- Agents: fixed preference, epsilon-greedy learning, and loss-averse utility.
+- Metrics: cumulative payoff, risky-choice rate, regret, and round-level traces.
+- Tests for reproducibility, learning updates, regret accounting, and loss-aversion behavior.
 
-## Quick Start
+## Run
 
 ```powershell
 python -m pip install -e .
@@ -53,17 +45,6 @@ result = run_simulation(game, EpsilonGreedyAgent(epsilon=0.2, seed=7))
 print(result.summary())
 ```
 
-## 中文说明
+## Evidence boundary
 
-这个仓库现在不只是一个 10 轮行为金融实验网页，而是一个可测试的“策略游戏智能体”项目：
-
-- 网页负责收集人类实验数据。
-- Python 包负责模拟不同决策规则下的行为。
-- 后续可以把人类选择和 agent 选择放到同一套指标下比较。
-
-当前版本只使用合成/程序生成收益，不声称已经解释真实投资行为，也不声称能产生交易策略。
-
-## Evidence Boundary
-
-See [evidence/validation-boundary.md](evidence/validation-boundary.md). This is
-a public research-tooling repository, not a behavioral theorem or trading model.
+See [evidence/validation-boundary.md](evidence/validation-boundary.md). This is experiment tooling and simulation code, not a behavioral theorem or trading model.
