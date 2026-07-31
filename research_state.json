@@ -1,0 +1,18 @@
+{
+  "repository_role": "public behavioral-finance and strategy-agent sandbox",
+  "status": "agent_simulation_foundation",
+  "latest_public_claim": "Provides tested repeated-game simulation, deterministic strategy agents, regret metrics, and an evidence boundary for behavioral-finance experiments.",
+  "evidence_level": "synthetic_game_only",
+  "private_material_excluded": [
+    "private participant data",
+    "credentials",
+    "raw survey submissions",
+    "trading-performance claims"
+  ],
+  "next_evidence_steps": [
+    "add anonymized public-format participant schema",
+    "fit behavioral parameters on sample data",
+    "compare human traces against strategy-agent baselines",
+    "add report generation for experiment sessions"
+  ]
+}
